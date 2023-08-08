@@ -34,8 +34,6 @@
 
 <script>
 import LoadingModal from '@/components/index/LoadingModal'
-import * as validation from '@/utils/validation'
-import useVuelidate from '@vuelidate/core'
 import Modal from '../Modal'
 
 export default {
@@ -53,26 +51,9 @@ export default {
   },
   data() {
     return {
-      walletName: '',
       targetOrigin: 'https://wallet.ctblock.cn',
       // targetOrigin: 'http://localhost:8000',
-      address: '',
-      privateKey: '',
-      publicKey: '',
-
-      password: '',
-      passwordError: '',
-      canCopy: !!navigator.clipboard,
-      loading: false,
-      defaultV: 'ERC721Ctnft'
-    }
-  },
-  validations() {
-    return {
-      password: [
-        validation.passwordRequired,
-        validation.passwordLength
-      ]
+      loading: false
     }
   },
   watch: {
@@ -82,11 +63,7 @@ export default {
       }
     }
   },
-  computed: {
-    canSubmit() {
-      return !this.v$.$invalid
-    }
-  },
+  computed: {},
   methods: {
     iframeLoad() {
       let that = this
@@ -119,17 +96,13 @@ export default {
     },
 
     reset() {
-      this.password = ''
-      this.v$.$reset()
     }
   },
   mounted() {
     this.loading = this.visible
   },
   setup() {
-    return {
-      v$: useVuelidate()
-    }
+    return {}
   }
 }
 </script>
