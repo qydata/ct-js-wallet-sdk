@@ -28,7 +28,13 @@ export default {
 
 <style>
 .app {
+  /*--tw-bg-opacity: 1;*/
+  /*background-color: rgba(229, 231, 235, var(--tw-bg-opacity));*/
+}
+.el-form--default{
   --tw-bg-opacity: 1;
   background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+  padding: 20px;
+  border-radius: 10px;
 }
 </style>

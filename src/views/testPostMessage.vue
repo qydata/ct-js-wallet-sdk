@@ -10,169 +10,207 @@
     <el-button type="success" size="large" @click="connectWallet">链接钱包测试</el-button>
     <el-button type="info" size="large" @click="showTrans">Show</el-button>
     <p>信息:{{ connectWalletMessage }}: {{ walletAddress }}</p>
-    <el-row type="flex" justify="center" align="middle" :gutter="50">
-      <el-col :md="12" :span="24" v-show="showT">
+    <el-row type="flex" justify="center" align="middle" :gutter="20">
+      <el-col :md="4" :span="24" v-show="showT">
         <div class="mb32">
 
           <h2>打开窗口发送交易</h2>
           <div>
+            <el-form
+              label-position="top"
+              label-width="100px"
+              :model="addressForm"
+            >
+              <el-form-item label="发送方地址:">
+                <el-input placeholder="发送方地址" disabled v-model="walletAddress"/>
+              </el-form-item>
+              <el-form-item label="接收方地址:">
+                <el-input placeholder="接收方地址" v-model="addressForm.to"/>
+              </el-form-item>
+              <el-form-item label="发送数量:">
+                <el-input placeholder="发送数量" v-model="addressForm.value"/>
+              </el-form-item>
+              <el-form-item label="">
+                <el-button type="primary" size="large" @click="postMessage(1)">发送</el-button>
+              </el-form-item>
+              <el-form-item label="result:">
+                {{ addTx }}
+              </el-form-item>
+            </el-form>
+          </div>
+
+
+        </div>
+      </el-col>
+      <el-col :md="7" :span="24" v-show="showT">
+        <h2>打开窗口合约交互</h2>
+        <div>
+          <el-form
+            label-position="top"
+            label-width="100px"
+            :model="addressForm"
+          >
             <el-form-item label="发送方地址:">
               <el-input placeholder="发送方地址" disabled v-model="walletAddress"/>
-            </el-form-item>
-            <el-form-item label="接收方地址:">
-              <el-input placeholder="接收方地址" v-model="addressForm.to"/>
             </el-form-item>
             <el-form-item label="发送数量:">
               <el-input placeholder="发送数量" v-model="addressForm.value"/>
             </el-form-item>
-            <el-form-item label="">
-              <el-button type="primary" size="large" @click="postMessage(1)">发送</el-button>
+            <el-form-item label="合约地址:">
+              <el-input placeholder="合约地址" v-model="addressForm.to"/>
             </el-form-item>
-            <el-form-item label="result:">
-              {{ addTx }}
+            <el-form-item label="合约abi:">
+              <el-input placeholder="合约abi" type="textarea" :autosize="{ minRows: 2, maxRows: 8 }"
+                        v-model="addressForm.abi"/>
             </el-form-item>
-          </div>
-
-
-        </div>
-      </el-col>
-      <el-col :md="12" :span="24" v-show="showT">
-        <h2>打开窗口合约交互</h2>
-        <div>
-          <el-form-item label="发送方地址:">
-            <el-input placeholder="发送方地址" disabled v-model="walletAddress"/>
-          </el-form-item>
-          <el-form-item label="发送数量:">
-            <el-input placeholder="发送数量" v-model="addressForm.value"/>
-          </el-form-item>
-          <el-form-item label="合约地址:">
-            <el-input placeholder="合约地址" v-model="addressForm.to"/>
-          </el-form-item>
-          <el-form-item label="合约abi:">
-            <el-input placeholder="合约abi" type="textarea" v-model="addressForm.abi"/>
-          </el-form-item>
-          <el-form-item label="合约方法:">
-            <el-input placeholder="合约方法" v-model="addressForm.method"/>
-          </el-form-item>
-          <el-form-item label="合约参数:">
-            <el-input placeholder="合约参数" v-model="addressForm.params"/>
-          </el-form-item>
-          <el-button size="large" type="primary" @click="postMessage(2)">交互</el-button>
-          <el-form-item label="Result:">
-            {{ contractTx }}
-          </el-form-item>
+            <el-form-item label="合约方法:">
+              <el-input placeholder="合约方法" v-model="addressForm.method"/>
+            </el-form-item>
+            <el-form-item label="合约参数:">
+              <el-input placeholder="合约参数" v-model="addressForm.params"/>
+            </el-form-item>
+            <el-button size="large" type="primary" @click="postMessage(2)">交互</el-button>
+            <el-form-item label="Result:">
+              {{ contractTx }}
+            </el-form-item>
+          </el-form>
         </div>
       </el-col>
 
       <!--       签名-->
-      <el-col :md="8" :span="24">
+      <el-col :md="4" :span="24">
         <h2>模态框普通交易签名</h2>
         <div class="mb32">
           <div>
+            <el-form
+              label-position="top"
+              label-width="100px"
+              :model="addressSignPTJYForm"
+            >
+              <el-form-item label="发送方地址:">
+                <el-input placeholder="发送方地址" v-model="addressSignPTJYForm.from"/>
+              </el-form-item>
+              <el-form-item label="接收方地址:">
+                <el-input placeholder="接收方地址" v-model=" addressSignPTJYForm.to"/>
+              </el-form-item>
+              <el-form-item label="发送数量:">
+                <el-input placeholder="发送数量" v-model=" addressSignPTJYForm.value"/>
+              </el-form-item>
+              <el-form-item label="发送数量:">
+                <el-input placeholder="发送数量" v-model=" nonce"/>
+              </el-form-item>
+              <el-form-item label="gasPrice:">
+                <el-input placeholder="gasPrice" v-model=" addressSignPTJYForm.gasPrice"/>
+              </el-form-item>
+              <el-form-item label="gasLimit:">
+                <el-input placeholder="gasLimit" v-model=" addressSignPTJYForm.gasLimit"/>
+              </el-form-item>
+              <el-form-item label="Data:">
+                <el-input placeholder="Data" v-model=" addressSignPTJYForm.data"/>
+              </el-form-item>
+              <el-form-item label="">
+                <el-button type="primary" size="large" @click="signPTJY">签名普通交易</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
+        </div>
+      </el-col>
+      <el-col :md="7" :span="24">
+        <h2>模态框合约交易签名</h2>
+        <div>
+          <el-form
+            label-position="top"
+            label-width="100px"
+            :model="addressSignHYJYForm"
+          >
             <el-form-item label="发送方地址:">
-              <el-input placeholder="发送方地址" v-model="addressSignPTJYForm.from"/>
-            </el-form-item>
-            <el-form-item label="接收方地址:">
-              <el-input placeholder="接收方地址" v-model=" addressSignPTJYForm.to"/>
+              <el-input placeholder="发送方地址" disabled v-model="walletAddress"/>
             </el-form-item>
             <el-form-item label="发送数量:">
-              <el-input placeholder="发送数量" v-model=" addressSignPTJYForm.value"/>
+              <el-input placeholder="发送数量" v-model=" addressSignHYJYForm.value"/>
             </el-form-item>
             <el-form-item label="发送数量:">
               <el-input placeholder="发送数量" v-model=" nonce"/>
             </el-form-item>
+            <el-form-item label="合约地址:">
+              <el-input placeholder="合约地址" v-model=" addressSignHYJYForm.to"/>
+            </el-form-item>
+            <el-form-item label="合约abi:">
+              <el-input placeholder="合约abi" type="textarea" v-model=" addressSignHYJYForm.abi" :autosize="{ minRows: 2, maxRows: 8 }"/>
+            </el-form-item>
+            <el-form-item label="合约方法:">
+              <el-input placeholder="合约方法" v-model=" addressSignHYJYForm.method"/>
+            </el-form-item>
+            <el-form-item label="合约参数:">
+              <el-input placeholder="合约参数" v-model=" addressSignHYJYForm.params"/>
+            </el-form-item>
             <el-form-item label="gasPrice:">
-              <el-input placeholder="gasPrice" v-model=" addressSignPTJYForm.gasPrice"/>
+              <el-input placeholder="gasPrice"  v-model=" addressSignHYJYForm.gasPrice"/>
             </el-form-item>
             <el-form-item label="gasLimit:">
-              <el-input placeholder="gasLimit" v-model=" addressSignPTJYForm.gasLimit"/>
+              <el-input placeholder="gasLimit" v-model=" addressSignHYJYForm.gasLimit"/>
             </el-form-item>
-            <el-form-item label="Data:">
-              <el-input placeholder="Data" v-model=" addressSignPTJYForm.data"/>
+            <el-form-item label="data:">
+              <el-input placeholder="data" v-model=" addressSignHYJYForm.data"/>
             </el-form-item>
-            <el-form-item label="">
-              <el-button type="primary" size="large" @click="signPTJY">签名普通交易</el-button>
+            <el-button size="large" type="primary" @click="signPreparHYJY">计算手续费和组装data参数</el-button>
+            <el-button size="large" type="primary" @click="signHYJY">签名合约交易</el-button>
+            <el-form-item label="GasLimitResult:">
+              {{ HYJYError }}
             </el-form-item>
-          </div>
+          </el-form>
         </div>
       </el-col>
       <el-col :md="8" :span="24">
-        <h2>模态框合约交易签名</h2>
-        <div>
-          <el-form-item label="发送方地址:">
-            <el-input placeholder="发送方地址" disabled v-model="walletAddress"/>
-          </el-form-item>
-          <el-form-item label="发送数量:">
-            <el-input placeholder="发送数量" v-model=" addressSignHYJYForm.value"/>
-          </el-form-item>
-          <el-form-item label="发送数量:">
-            <el-input placeholder="发送数量" v-model=" nonce"/>
-          </el-form-item>
-          <el-form-item label="合约地址:">
-            <el-input placeholder="合约地址" v-model=" addressSignHYJYForm.to"/>
-          </el-form-item>
-          <el-form-item label="合约abi:">
-            <el-input placeholder="合约abi" type="textarea" v-model=" addressSignHYJYForm.abi"/>
-          </el-form-item>
-          <el-form-item label="合约方法:">
-            <el-input placeholder="合约方法" v-model=" addressSignHYJYForm.method"/>
-          </el-form-item>
-          <el-form-item label="合约参数:">
-            <el-input placeholder="合约参数" v-model=" addressSignHYJYForm.params"/>
-          </el-form-item>
-          <el-form-item label="gasPrice:">
-            <el-input placeholder="gasPrice" type="textarea" v-model=" addressSignHYJYForm.gasPrice"/>
-          </el-form-item>
-          <el-form-item label="gasLimit:">
-            <el-input placeholder="gasLimit" type="textarea" v-model=" addressSignHYJYForm.gasLimit"/>
-          </el-form-item>
-          <el-form-item label="data:">
-            <el-input placeholder="data" v-model=" addressSignHYJYForm.data"/>
-          </el-form-item>
-          <el-button size="large" type="primary" @click="signPreparHYJY">计算手续费和组装data参数</el-button>
-          <el-button size="large" type="primary" @click="signHYJY">签名合约交易</el-button>
-          <el-form-item label="GasLimitResult:">
-            {{ HYJYError }}
-          </el-form-item>
-        </div>
-      </el-col>
-      <el-col :md="16" :span="24">
         <h2>签名数据进行上链广播</h2>
-        <el-form-item label="serializedTxStr:">
-          <el-input disabled placeholder="serializedTxStr" v-model="serializedTxStr"/>
-        </el-form-item>
-        <el-button type="primary" size="large" @click="boardcastTransaction">广播交易</el-button>
-        <el-form-item label="txResult:">
-          <el-input placeholder="txResult" type="textarea" v-model="txResult"/>
-        </el-form-item>
+        <el-form
+          label-position="top"
+          label-width="100px"
+          :model="addressSignHYJYForm"
+        >
+          <el-form-item label="serializedTxStr:">
+            <el-input disabled placeholder="serializedTxStr" v-model="serializedTxStr"/>
+          </el-form-item>
+          <el-button type="primary" size="large" @click="boardcastTransaction">广播交易</el-button>
+          <el-form-item label="txResult:">
+            <el-input placeholder="txResult" type="textarea" v-model="txResult" :autosize="{ minRows: 2, maxRows: 8 }"/>
+          </el-form-item>
+        </el-form>
       </el-col>
       <!--      结构化签名交易-->
-      <el-col :md="16" :span="24">
+      <el-col :md="8" :span="24">
         <h2>模态框结构数据签名</h2>
         <div>
-          <el-form-item label="chainid:">
-            <el-input placeholder="chainid" disabled type="textarea" v-model="stractSignMsg.chainId"/>
-          </el-form-item>
-          <el-form-item label="name:">
-            <el-input placeholder="签名字符串" type="textarea" v-model="stractSignMsg.name"/>
-          </el-form-item>
-          <el-form-item label="version:">
-            <el-input placeholder="签名字符串" disabled type="textarea" v-model="stractSignMsg.version"/>
-          </el-form-item>
-          <el-form-item label="verifyingContract:">
-            <el-input placeholder="签名字符串" disabled type="textarea" v-model="stractSignMsg.verifyingContract"/>
-          </el-form-item>
-          <el-form-item label="primaryType:">
-            <el-input placeholder="签名字符串" type="textarea" v-model="stractSignMsg.primaryType"/>
-          </el-form-item>
-          <el-form-item label="msg:">
-            <el-input placeholder="签名字符串" type="textarea" v-model="stractSignMsg.msg"/>
-          </el-form-item>
-          <el-button size="large" type="primary" @click="signJGH">结构化签名</el-button>
+          <el-form
+            label-position="top"
+            label-width="100px"
+            :model="stractSignMsg"
+          >
+            <el-form-item label="chainid:">
+              <el-input placeholder="chainid" disabled   v-model="stractSignMsg.chainId"/>
+            </el-form-item>
+            <el-form-item label="name:">
+              <el-input placeholder="签名字符串" type="textarea" v-model="stractSignMsg.name" :autosize="{ minRows: 2, maxRows: 8 }"/>
+            </el-form-item>
+            <el-form-item label="version:">
+              <el-input placeholder="签名字符串" disabled type="textarea" v-model="stractSignMsg.version"/>
+            </el-form-item>
+            <el-form-item label="verifyingContract:">
+              <el-input placeholder="签名字符串" disabled type="textarea" v-model="stractSignMsg.verifyingContract"/>
+            </el-form-item>
+            <el-form-item label="primaryType:">
+              <el-input placeholder="签名字符串" type="textarea" v-model="stractSignMsg.primaryType"/>
+            </el-form-item>
+            <el-form-item label="msg:">
+              <el-input placeholder="签名字符串" type="textarea" v-model="stractSignMsg.msg"/>
+            </el-form-item>
+            <el-button size="large" type="primary" @click="signJGH">结构化签名</el-button>
+            <el-form-item label="Result:">
+              {{ contractStractSignTx }}
+            </el-form-item>
+
+          </el-form>
         </div>
-        <el-form-item label="Result:">
-          {{ contractStractSignTx }}
-        </el-form-item>
 
       </el-col>
     </el-row>
