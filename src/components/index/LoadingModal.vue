@@ -1,6 +1,6 @@
 <template>
-  <Modal :close="cancel" :visible="visible">
-    <template v-slot:body>
+  <el-dialog  :model-value="visible" :show-close="false" width="500px">
+    <div style="height: 850px">
       <body>
       <div class="loading">
         <span style="--i: 0;"></span>
@@ -15,95 +15,43 @@
         <span style="--i: 18;"></span>
       </div>
       </body>
-
-    </template>
-    <template v-slot:footer>
       <div style="text-align: center;">
         <h3>加载中</h3>
       </div>
-    </template>
-  </Modal>
+    </div>
+  </el-dialog>
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import Modal from '../Modal'
 
 export default {
   name: 'LoadingModal',
-  components: {
-    Modal
-  },
+  components: {},
   props: {
-    afterCreate: Function,
     close: Function,
     visible: Boolean
   },
   data() {
     return {
-      canCopy: !!navigator.clipboard
+      test: false
     }
   },
-  validations() {
-    return {}
-  },
-  computed: {
-    canSubmit() {
-      return !this.v$.$invalid
-    }
-  },
+  computed: {},
   methods: {
     cancel() {
       this.reset()
       this.close()
-    },
-    reset() {
-      this.v$.$reset()
     }
   },
   async mounted() {
-
   },
   setup() {
-    return {
-      v$: useVuelidate()
-    }
+    return {}
   }
 }
 </script>
 
 <style scoped>
-.private-key {
-  width: 32ch
-}
-
-.on-clicked-effect {
-  transition: all 0.4s ease-in;
-}
-
-.on-clicked-effect:before {
-  content: '';
-  background-color: aliceblue;
-  border-radius: 50%;
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform: scale(0.001, 0.001);
-}
-
-.on-clicked-effect:focus:not(:active) {
-  position: relative;
-  display: inline-block;
-  outline: 0;
-}
-
-.on-clicked-effect:focus:not(:active):before {
-  animation: clicked_animation 0.8s ease-out;
-}
-
 @keyframes clicked_animation {
   50% {
     transform: scale(1.5, 1.5);

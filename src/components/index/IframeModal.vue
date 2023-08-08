@@ -1,46 +1,30 @@
 <template>
-  <div>
-    <Modal :close="cancel" :visible="visible">
-      <template v-slot:header>
-        <h2>{{ tabModelName }}</h2>
-      </template>
+  <el-dialog :model-value="visible" :show-close="false" width="500px" height="100%">
+    <template #header>
+      <h2>{{ tabModelName }}</h2>
+    </template>
 
-      <template v-slot:body>
-        <div class="pt-15">
-          <iframe id="iframeConnectWallet"
-                  ref="iframe"
-                  name="iframeConnectWallet"
-                  title="Inline Frame"
-                  @load="iframeLoad"
-                  height="800"
-                  width="400"
-                  :src="connectWalletCallbackUrl">
-          </iframe>
+    <iframe id="iframeConnectWallet"
+            ref="iframe"
+            name="iframeConnectWallet"
+            title="Inline Frame"
+            @load="iframeLoad"
+            height="800"
+            width="400"
+            :src="connectWalletCallbackUrl">
+    </iframe>
 
-        </div>
-      </template>
-
-      <template v-slot:footer>
-        <div class="px-24 pt-48 border-gray-700 border-solid border-t-default border-opacity-30 pb-54">
-          <el-button type="success" size="large" @click="visible = false">关闭</el-button>
-
-        </div>
-      </template>
-
-    </Modal>
     <LoadingModal :visible="loading"/>
-  </div>
+  </el-dialog>
 </template>
 
 <script>
 import LoadingModal from '@/components/index/LoadingModal'
-import Modal from '../Modal'
 
 export default {
   name: 'IframeModal',
   components: {
-    LoadingModal,
-    Modal
+    LoadingModal
   },
   props: {
     transaction: Object,
@@ -85,17 +69,12 @@ export default {
         }
         if (that.connectWalletCallbackUrl.toString().indexOf('/connectWallet') != -1) {
           // 链接钱包
-
         }
       }, 1000)
 
     },
     cancel() {
-      this.reset()
       this.close()
-    },
-
-    reset() {
     }
   },
   mounted() {
@@ -108,37 +87,6 @@ export default {
 </script>
 
 <style scoped>
-.private-key {
-  width: 32ch
-}
-
-.on-clicked-effect {
-  transition: all 0.4s ease-in;
-}
-
-.on-clicked-effect:before {
-  content: '';
-  background-color: aliceblue;
-  border-radius: 50%;
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform: scale(0.001, 0.001);
-}
-
-.on-clicked-effect:focus:not(:active) {
-  position: relative;
-  display: inline-block;
-  outline: 0;
-}
-
-.on-clicked-effect:focus:not(:active):before {
-  animation: clicked_animation 0.8s ease-out;
-}
-
 @keyframes clicked_animation {
   50% {
     transform: scale(1.5, 1.5);

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const ethers = require('ethers')
+
 export default {
   title() {
     return '草田链'
@@ -19,6 +19,9 @@ export default {
   },
   mounted: function () {
     this.setViewHeight()
+    // 使用暗色模式
+    let html = document.documentElement
+    html.classList.add('dark')
     window.addEventListener('resize', () => {
       this.setViewHeight()
     })
@@ -31,7 +34,8 @@ export default {
   /*--tw-bg-opacity: 1;*/
   /*background-color: rgba(229, 231, 235, var(--tw-bg-opacity));*/
 }
-.el-form--default{
+
+.el-form--default {
   --tw-bg-opacity: 1;
   background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
   padding: 20px;
