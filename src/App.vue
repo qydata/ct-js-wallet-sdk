@@ -624,7 +624,10 @@ export default {
 </script>
 <style scoped>
 .index {
-  width: 100%;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  /*width: 100%;*/
   padding: 5px;
 }
 </style>
