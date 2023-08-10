@@ -1,6 +1,8 @@
 <template>
-  <el-dialog  :model-value="visible" :show-close="false" width="500px">
-    <div style="height: 850px">
+  <el-dialog :close-on-click-modal="false"
+             :close-on-press-escape="false"
+             :model-value="visible" :show-close="false" width="500px">
+    <div>
       <body>
       <div class="loading">
         <span style="--i: 0;"></span>

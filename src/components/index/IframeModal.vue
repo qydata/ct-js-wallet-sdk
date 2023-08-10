@@ -1,20 +1,25 @@
 <template>
-  <el-dialog :model-value="visible" :show-close="false" width="500px" height="100%">
+  <el-dialog :model-value="visible"
+             :show-close="false"
+             :close-on-click-modal="false"
+             :close-on-press-escape="false"
+             width="500px" height="100%">
     <template #header>
       <h2>{{ tabModelName }}</h2>
     </template>
-
-    <iframe id="iframeConnectWallet"
-            ref="iframe"
-            name="iframeConnectWallet"
-            title="Inline Frame"
-            @load="iframeLoad"
-            height="800"
-            width="400"
-            :src="connectWalletCallbackUrl">
-    </iframe>
-
     <LoadingModal :visible="loading"/>
+    <div v-show="!loading">
+      <iframe id="iframeConnectWallet"
+              ref="iframe"
+
+              name="iframeConnectWallet"
+              title="Inline Frame"
+              @load="iframeLoad"
+              height="800"
+              width="400"
+              :src="connectWalletCallbackUrl">
+      </iframe>
+    </div>
   </el-dialog>
 </template>
 
@@ -104,5 +109,6 @@ export default {
 
 #iframeConnectWallet {
   width: 100%;
+  border: 0px;
 }
 </style>
