@@ -20,7 +20,8 @@
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --mode u2lib --target lib --inline-vue --name ctjswalletsdk --dest lib src/ctjswalletsdk.js --watch",
     "publish-packages": "semantic-release --repository-url git@github.com:qydata/ctjswalletsdk.git"
   },
-  "main": "src/ctjswalletsdk.js",
+  "main": "es/ctjswalletsdk",
+  "typings": "es/ctjswalletsdk",
   "dependencies": {
     "@babel/preset-react": "^7.22.5",
     "click-outside-vue3": "^4.0.1",
