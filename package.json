@@ -16,7 +16,6 @@
     "lib": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build  --mode u2lib --target lib --inline-vue --name ctjswalletsdk --dest lib src/ctjswalletsdk.js ",
     "lib1": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build  --target lib  src/ctjswalletsdk.js ",
     "build:es": "babel src -d es --source-maps",
-    "es": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build  --target es --inline-vue --name ctjswalletsdk --dest lib src/ctjswalletsdk.js ",
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --mode u2lib --target lib --inline-vue --name ctjswalletsdk --dest lib src/ctjswalletsdk.js --watch",
     "publish-packages": "semantic-release --repository-url git@github.com:qydata/ctjswalletsdk.git"
   },
@@ -31,19 +30,19 @@
     "dotenv": "^8.2.0",
     "element-plus": "^2.3.4",
     "elliptic": "^6.5.4",
-    "ethereumjs-util": "^7.1.5",
-    "ethers": "^5.7.2",
     "flat": "^5.0.2",
-    "js-sha3": "^0.8.0",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
     "postcss": "^7.0.35",
     "ramda": "^0.27.1",
     "vue": "^3.2.4",
-    "vuex": "^4.0.2",
-    "web3": "^1.9.0"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "web3": "^1.9.0",
+    "js-sha3": "^0.8.0",
+    "ethereumjs-util": "^7.1.5",
+    "ethers": "^5.7.2",
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",

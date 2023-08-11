@@ -10,21 +10,16 @@ app.config.globalProperties.productionTip = false
 app.use(ElementPlus)
 
 class ctjswalletsdk {
-  constructor(option, cb) {
+  constructor() {
     if (!ctjswalletsdk.instance) {
-      ctjswalletsdk.renderDom(option, cb)
+      ctjswalletsdk.renderDom()
       ctjswalletsdk.instance = this
     }
     return ctjswalletsdk.instance
   }
 
   // 渲染vue
-  static renderDom(option, cb) {
-    // 先判断参数
-    if (!option) {
-      console.log('缺少参数')
-      return
-    }
+  static renderDom() {
     // 1.创建挂载节点
     const outer = document.createElement('div')
     outer.setAttribute('id', 'ctjswalletsdk')
@@ -32,16 +27,15 @@ class ctjswalletsdk {
     // 2.vue挂载
     app.mount('#ctjswalletsdk')
     // 3.传入的参数绑定到全局，方便统一调用
-    app.config.globalProperties.$keyA = option.keyA
-    app.config.globalProperties.$keyB = option.keyB
+    // app.config.globalProperties.$keyB = option.keyB
     // 4.绑定成功的回调，完成弹框功能后，通知用户
-    app.config.globalProperties.$successCb = cb
+    // app.config.globalProperties.$successCb = cb
   }
 
   // 初始化
-  static init(option, cb) {
+  static init() {
     if (!this.instance) {
-      this.instance = new ctjswalletsdk(option, cb)
+      this.instance = new ctjswalletsdk()
     }
     return this.instance
   }
@@ -50,14 +44,18 @@ class ctjswalletsdk {
     console.log(666666)
   }
 
+  static test1() {
+    console.log(app._instance.ctx)
+  }
+
   static async connectWallet() {
-   return await window.ctApp.connectWallet()
+   return await app._instance.ctx.connectWallet()
   }
   static async sendAddressTrans(from, to, value) {
-   return await window.ctApp.sendAddressTrans(from, to, value)
+   return await app._instance.ctx.sendAddressTrans(from, to, value)
   }
   static async sendContractTrans(from, to, contractAddress, value, abi, method, params) {
-   return await window.ctApp.sendContractTrans(from, to, contractAddress, value, abi, method, params)
+   return await app._instance.ctx.sendContractTrans(from, to, contractAddress, value, abi, method, params)
   }
 }
 
