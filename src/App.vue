@@ -616,6 +616,7 @@ export default {
             resolve(event.data)
             that.tabModel = null
           }
+          console.log("其它事件", event.data)
         })
       })
     }

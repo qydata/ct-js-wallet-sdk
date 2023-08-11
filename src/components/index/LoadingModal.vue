@@ -3,7 +3,7 @@
              :close-on-press-escape="false"
              :model-value="visible" :show-close="false" width="500px">
     <div>
-      <body>
+      <body style="background: #141414;">
       <div class="loading">
         <span style="--i: 0;"></span>
         <span style="--i: 2;"></span>
