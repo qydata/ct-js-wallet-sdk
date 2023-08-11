@@ -14,11 +14,15 @@
     "lint": "eslint --ext js,vue src",
     "lint:fix": "eslint --fix --ext js,vue src",
     "lib": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build  --mode u2lib --target lib --inline-vue --name ctjswalletsdk --dest lib src/ctjswalletsdk.js ",
+    "lib1": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build  --target lib  src/ctjswalletsdk.js ",
+    "build:es": "babel src -d es --source-maps",
+    "es": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build  --target es --inline-vue --name ctjswalletsdk --dest lib src/ctjswalletsdk.js ",
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --mode u2lib --target lib --inline-vue --name ctjswalletsdk --dest lib src/ctjswalletsdk.js --watch",
     "publish-packages": "semantic-release --repository-url git@github.com:qydata/ctjswalletsdk.git"
   },
-  "main": "dist/ctjswalletsdk.umd.js",
+  "main": "src/ctjswalletsdk.js",
   "dependencies": {
+    "@babel/preset-react": "^7.22.5",
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
@@ -39,10 +43,16 @@
     "web3": "^1.9.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "babel-loader": "^8.0.6",
     "cross-env": "^7.0.3",
     "deepmerge": "^4.3.1",
     "eslint-plugin-vue": "^8.4.0",
